@@ -3,6 +3,8 @@ import { arrayOf, shape, string } from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 
+import Avatar from './Avatar';
+
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -13,17 +15,14 @@ const Wrapper = styled.div`
 
 const MessageWrapper = styled.div`
   display: flex;
-`;
-
-const Avatar = styled.div`
-  width: 48px;
-  height: 48px;
-  border-radius: 4px;
-  background-color: LightGray;
-  margin-right: 16px;
+  margin-bottom: 16px;
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 const ContentWrapper = styled.div`
+  margin-left: 16px;
 `;
 
 const Title = styled.div`
@@ -54,7 +53,7 @@ const Messages = ({ messages }) => {
           <MessageWrapper key={item._id}>
             <Avatar />
 
-            <div>
+            <ContentWrapper>
               <Title>
                 <AuthorName>
                   {'vitaliizhukov'}
@@ -66,7 +65,7 @@ const Messages = ({ messages }) => {
               <Text>
               { item.text }
               </Text>
-            </div>
+            </ContentWrapper>
           </MessageWrapper>
         );
       })}
