@@ -1,7 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
-import { consolidateStreamedStyles } from 'styled-components';
  
 export const Chats = new Mongo.Collection('chats');
 
@@ -15,8 +14,8 @@ Meteor.methods({
  
     Chats.insert({
       name,
-      createdAt: new Date(),
-      owner: this.userId,
+      createdAt: Date.now(),
+      ownerId: this.userId,
       username: Meteor.users.findOne(this.userId).username,
     });
   },
@@ -29,6 +28,6 @@ Meteor.methods({
 if (Meteor.isServer) {
   Meteor.publish('chats', function chatsPublication() {
     console.log(this.userId);
-    return Chats.find({ owner: this.userId });
+    return Chats.find({ ownerId: this.userId });
   });
 }

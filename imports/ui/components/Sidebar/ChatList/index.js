@@ -30,8 +30,8 @@ const ChatButton = styled.button`
 `;
 
 class ChatList extends PureComponent {
-  addChat = (name) => {
-    Meteor.call('chats.insert', name);
+  addChat = (chatTitle) => {
+    Meteor.call('chats.insert', chatTitle);
   }
 
   handleClick = (chatId) => () => {
