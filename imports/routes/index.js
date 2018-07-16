@@ -3,6 +3,7 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 import { mount } from 'react-mounter';
 
 import MainLayout from '../ui/layouts/MainLayout';
+import ChatLayout from '../ui/layouts/ChatLayout';
 import App from '../ui/App';
 
 Accounts.onLogin((() => {
@@ -27,7 +28,7 @@ unauthorizedRoutes.route('/', {
 
 authorizedRoutes.route('/chats', {
   action() {
-    mount(MainLayout, {
+    mount(ChatLayout, {
       content: (<App />)
     });
   },
