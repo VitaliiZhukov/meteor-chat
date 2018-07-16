@@ -5,7 +5,35 @@ import { mount } from 'react-mounter';
 import MainLayout from '../ui/layouts/MainLayout';
 import App from '../ui/App';
 
-FlowRouter.route('/', {
+Accounts.onLogin((() => {
+  FlowRouter.go('/chats')
+}));
+
+const authorizedRoutes = FlowRouter.group({
+  name: 'authorized'
+});
+
+const unauthorizedRoutes = FlowRouter.group({
+  name: 'unauthorized'
+});
+
+unauthorizedRoutes.route('/', {
+  action() {
+    mount(MainLayout, {
+      content: (<App />)
+    });
+  },
+});
+
+authorizedRoutes.route('/chats', {
+  action() {
+    mount(MainLayout, {
+      content: (<App />)
+    });
+  },
+});
+
+authorizedRoutes.route('/chats/:chatId', {
   action() {
     mount(MainLayout, {
       content: (<App />)
