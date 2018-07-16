@@ -13,6 +13,10 @@ const HeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  h3 {
+    margin-bottom: 0;
+    margin-top: -3px;
+  }
 `;
 
 const Button = styled.button`

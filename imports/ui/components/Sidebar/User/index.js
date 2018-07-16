@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import { string, shape, bool } from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
@@ -10,14 +10,21 @@ const Wrapper = styled.div`
   margin: 0 32px;
 `;
 
-const User = ({ user, isOnline }) => (
+const Text = styled.p`
+  margin-top: 3px;
+`;
+
+const User = ({ user, isOnline, theme }) => (
   <Wrapper>
     {
       isOnline
-      ? <Icon name={'circle'} style={{ color: '#5E9489'}} />
+      ? <Icon name={'circle'} style={{ color: theme.highlightColor }} />
       : <Icon name={'circle outline'} />
     }
-    { user.username }
+
+    <Text>
+      { user.username }
+    </Text>
   </Wrapper>
 );
 
@@ -33,4 +40,4 @@ User.defaultProps = {
   isOnline: false
 };
 
-export default User;
+export default withTheme(User);
