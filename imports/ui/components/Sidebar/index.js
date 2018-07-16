@@ -10,7 +10,7 @@ import ChatList from './ChatList';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 32px 16px;
+  padding: 32px 0;
 `;
 
 const Sidebar = ({ currentUser }) => {

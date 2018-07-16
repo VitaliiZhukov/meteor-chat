@@ -5,7 +5,9 @@ import { Icon } from 'semantic-ui-react';
 
 import Input from './Input';
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  margin: 0 32px;
+`;
 
 const HeaderContent = styled.div`
   display: flex;

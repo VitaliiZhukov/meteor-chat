@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   font-weight: bold;
   display: flex;
   align-items: center;
+  margin: 0 32px;
 `;
 
 const User = ({ user, isOnline }) => (

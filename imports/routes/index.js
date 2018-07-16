@@ -5,6 +5,8 @@ import { mount } from 'react-mounter';
 import MainLayout from '../ui/layouts/MainLayout';
 import ChatLayout from '../ui/layouts/ChatLayout';
 import App from '../ui/App';
+import Chat from '../ui/components/Chat';
+
 
 Accounts.onLogin((() => {
   FlowRouter.go('/chats')
@@ -29,15 +31,15 @@ unauthorizedRoutes.route('/', {
 authorizedRoutes.route('/chats', {
   action() {
     mount(ChatLayout, {
-      content: (<App />)
+      content: null
     });
   },
 });
 
 authorizedRoutes.route('/chats/:chatId', {
   action() {
-    mount(MainLayout, {
-      content: (<App />)
+    mount(ChatLayout, {
+      content: (<Chat />)
     });
   },
 });
