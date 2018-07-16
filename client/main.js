@@ -1,2 +1,2 @@
 import '../imports/routes';
-import '../imports/startup/accounts-config.js';
+import '../imports/startup/accounts-config';

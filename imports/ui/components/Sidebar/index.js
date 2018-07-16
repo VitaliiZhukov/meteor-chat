@@ -5,6 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import Preloader from '../../shared/Preloader';
 import User from './User';
+import ChatList from './ChatList';
 
 const Wrapper = styled.div`
   display: flex;
@@ -17,13 +18,14 @@ const Sidebar = ({ currentUser }) => {
     return <Preloader />;
   }
 
-  console.log(currentUser);
   return (
     <Wrapper>
       <User
         user={currentUser}
         isOnline
       />
+
+      <ChatList />
     </Wrapper>
   );
 };
