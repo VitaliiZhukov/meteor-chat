@@ -43,7 +43,7 @@ export default withTracker(({ chatId }) => {
   Meteor.subscribe('chats');
 
   return {
-    messages: Messages.find({}, { sort: { createdAt: -1 } }).fetch(),
-    chat: Chats.findOne({ _id: chatId }, { sort: { createdAt: -1 } }),
+    messages: Messages.find({ chatId }, { sort: { createdAt: 1 } }).fetch(),
+    chat: Chats.findOne({ _id: chatId }),
   };
 })(Chat);

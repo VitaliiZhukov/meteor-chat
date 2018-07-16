@@ -59,7 +59,7 @@ const Messages = ({ messages }) => {
                   {'vitaliizhukov'}
                 </AuthorName>
                 <Time>
-                  {moment.unix(item.createdAt).format('LT')}
+                  {moment.unix(item.createdAt / 1000).format('LT')}
                 </Time>
               </Title>
               <Text>
