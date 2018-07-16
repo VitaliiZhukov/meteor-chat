@@ -12,7 +12,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
  
-    Chats.insert({
+    return Chats.insert({
       name,
       createdAt: Date.now(),
       ownerId: this.userId,

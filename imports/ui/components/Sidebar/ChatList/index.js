@@ -31,7 +31,11 @@ const ChatButton = styled.button`
 
 class ChatList extends PureComponent {
   addChat = (chatTitle) => {
-    Meteor.call('chats.insert', chatTitle);
+    Meteor.call('chats.insert', chatTitle, (error, res) => {
+      if (!error && res) {
+        FlowRouter.go(`/chats/${res}`);
+      }
+    });
   }
 
   handleClick = (chatId) => () => {
