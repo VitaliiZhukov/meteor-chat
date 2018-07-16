@@ -37,9 +37,10 @@ authorizedRoutes.route('/chats', {
 });
 
 authorizedRoutes.route('/chats/:chatId', {
-  action() {
+  action({ chatId }) {
     mount(ChatLayout, {
-      content: (<Chat />)
+      content: (<Chat chatId={chatId} />),
+      chatId
     });
   },
 });

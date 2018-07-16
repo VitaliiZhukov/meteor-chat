@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { shape, arrayOf } from 'prop-types';
+import { shape, arrayOf, string } from 'prop-types';
 import styled from 'styled-components';
 import { withTracker } from 'meteor/react-meteor-data';
 
@@ -17,16 +17,16 @@ const ChatsWrapper = styled.div`
 const ChatButton = styled.button`
   width: 100%;
   padding: 16px 32px;
-  background-color: transparent;
   border: none;
   cursor: pointer;
-  color: ${props => props.theme.fontColor};
   text-align: left;
+  transition: all .5s ease-out;
+  background-color: ${props => props.isActive ? props.theme.highlightColor : 'transparent'};
+  color: ${props => props.isActive ? props.theme.highlightFontColor : props.theme.fontColor};
   &:hover {
     background-color: ${props => props.theme.highlightColor};
     color: ${props => props.theme.highlightFontColor};
   }
-  transition: all .5s ease-out;
 `;
 
 class ChatList extends PureComponent {
@@ -39,7 +39,7 @@ class ChatList extends PureComponent {
   }
 
   render() {
-    const { chats } = this.props;
+    const { chats, chatId } = this.props;
 
     return (
       <Wrapper>
@@ -55,6 +55,7 @@ class ChatList extends PureComponent {
                 <ChatButton
                   key={item._id}
                   onClick={this.handleClick(item._id)}
+                  isActive={chatId === item._id}
                 >
                   {`# ${item.name}`}
                 </ChatButton>
@@ -68,7 +69,13 @@ class ChatList extends PureComponent {
 };
 
 ChatList.propTypes = {
-  chats: arrayOf(shape({}))
+  chats: arrayOf(shape({})),
+  chatId: string
+};
+
+ChatList.defaultProps = {
+  chatId: '',
+  chats: []
 };
 
 export default withTracker(() => {

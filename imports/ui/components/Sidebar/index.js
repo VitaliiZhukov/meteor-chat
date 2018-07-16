@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   padding: 32px 0;
 `;
 
-const Sidebar = ({ currentUser }) => {
+const Sidebar = ({ currentUser, chatId }) => {
   if (!currentUser) {
     return <Preloader />;
   }
@@ -25,7 +25,7 @@ const Sidebar = ({ currentUser }) => {
         isOnline
       />
 
-      <ChatList />
+      <ChatList chatId={chatId} />
     </Wrapper>
   );
 };
@@ -33,7 +33,12 @@ const Sidebar = ({ currentUser }) => {
 Sidebar.propTypes = {
   currentUser: shape({
     _id: string.isRequired
-  })
+  }),
+  chatId: string
+};
+
+Sidebar.defaultProps = {
+  chatId: ''
 };
 
 export default withTracker(() => {

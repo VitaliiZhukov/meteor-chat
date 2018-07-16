@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
+import { node, string }from 'prop-types';
 
 import SidebarContent from '../../components/Sidebar';
 
@@ -28,11 +29,11 @@ const Content = styled.div`
   align-items: center;
 `;
 
-const ChatLayout = ({ content }) => (
+const ChatLayout = ({ content, chatId }) => (
   <ThemeProvider theme={theme}>
     <Wrapper>
       <Sidebar>
-        <SidebarContent />
+        <SidebarContent chatId={chatId} />
       </Sidebar>
       <Content>
         {
@@ -44,5 +45,15 @@ const ChatLayout = ({ content }) => (
     </Wrapper>
   </ThemeProvider>
 );
+
+ChatLayout.propTypes = {
+  content: node,
+  chatId: string
+};
+
+ChatLayout.defaultProps = {
+  chatId: '',
+  content: null
+};
 
 export default ChatLayout;
