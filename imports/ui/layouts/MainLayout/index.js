@@ -1,8 +1,10 @@
 import React from 'react';
-import { oneOfType, node, arrayOf } from 'prop-types';
+import { oneOfType, node, arrayOf, shape } from 'prop-types';
 import styled from 'styled-components';
+import { withTracker } from 'meteor/react-meteor-data';
 
 import Header from './Header';
+import UnauthorizedView from './UnauthorizedView';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -15,12 +17,16 @@ const ContentWrapper = styled.section`
   flex: 1;
 `;
 
-const MainLayout = ({ content }) => (
+const MainLayout = ({ content, currentUser }) => (
   <Wrapper>
     <Header />
 
     <ContentWrapper>
-      { content }
+      {
+        currentUser
+        ? content
+        : <UnauthorizedView />
+      }
     </ContentWrapper>
   </Wrapper>
 );
@@ -29,7 +35,12 @@ MainLayout.propTypes = {
   content: oneOfType([
     arrayOf(node),
     node
-  ])
+  ]),
+  currentUser: shape({})
 };
 
-export default MainLayout;
+export default withTracker(() => {
+  return {
+    currentUser: Meteor.user(),
+  };
+})(MainLayout);

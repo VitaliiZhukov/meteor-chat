@@ -9,6 +9,10 @@ body {
   background-color: #F9F9F9;
 }
 
+#react-root {
+  height: 100vh;
+}
+
 * {
   margin: 0;
   padding: 0;
