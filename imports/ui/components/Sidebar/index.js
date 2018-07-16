@@ -4,21 +4,28 @@ import { shape, string } from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 
 import Preloader from '../../shared/Preloader';
+import User from './User';
 
-const Wrapper = styled.header`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 32px 16px;
 `;
 
 const Sidebar = ({ currentUser }) => {
-  return <Preloader/>;
-  // if (!currentUser) {
-  //   return <Preloader />;
-  // }
-  // return (
-  //   <Wrapper>
-  //   </Wrapper>
-  // );
+  if (!currentUser) {
+    return <Preloader />;
+  }
+
+  console.log(currentUser);
+  return (
+    <Wrapper>
+      <User
+        user={currentUser}
+        isOnline
+      />
+    </Wrapper>
+  );
 };
 
 Sidebar.propTypes = {
