@@ -29,6 +29,7 @@ Meteor.methods({
 
 if (Meteor.isServer) {
   Meteor.publish('chats', function chatsPublication() {
-    return Chats.find({ ownerId: this.userId });
+    // return Chats.find({ ownerId: this.userId });
+    return Chats.find();
   });
 }

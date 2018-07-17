@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { withTracker } from 'meteor/react-meteor-data';
 
 import MessageInput from './MessageInput';
-import MessagesList from './Messages';
+import Message from './Message';
 import ChatHeader from './ChatHeader';
 import Preloader from '../../shared/Preloader';
 import { Messages } from '../../../api/messages';
@@ -15,6 +15,14 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between
+`;
+
+const MessagesWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 16px;
 `;
 
 class Chat extends PureComponent {
@@ -50,7 +58,9 @@ class Chat extends PureComponent {
           removeChat={this.removeChat}
         />
 
-        <MessagesList messages={messages} />
+        <MessagesWrapper>
+          {messages.map(item => <Message item={item} key={item._id} />)}
+        </MessagesWrapper>
 
         <MessageInput addMessage={this.addMessage} />
       </Wrapper>
@@ -59,11 +69,11 @@ class Chat extends PureComponent {
 };
 
 export default withTracker(({ chatId }) => {
-  Meteor.subscribe('messages');
   Meteor.subscribe('chats');
+  Meteor.subscribe('messages', chatId);
 
   return {
-    messages: Messages.find({ chatId }, { sort: { createdAt: 1 } }).fetch(),
+    messages: Messages.find({}, { sort: { createdAt: 1 } }).fetch(),
     chat: Chats.findOne({ _id: chatId }),
     currentUser: Meteor.user()
   };

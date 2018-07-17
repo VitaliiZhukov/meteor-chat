@@ -15,7 +15,7 @@ const View = () => (
       { 'You are not authorized.' }
     </p>
     <p>
-      { 'Please login or signup' }
+      { 'Please login or signup.' }
     </p>
   </Wrapper>
 );
