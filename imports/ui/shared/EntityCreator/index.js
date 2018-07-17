@@ -3,7 +3,7 @@ import { string, func } from 'prop-types';
 import styled from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 
-import Input from './Input';
+import InputWrapper from './InputWrapper';
 
 const Wrapper = styled.div`
   margin: 0 32px;
@@ -41,7 +41,7 @@ class EntityCreator extends PureComponent {
   }
 
   render() {
-    const { title, handleCreate } = this.props;
+    const { title, handleCreate, input, children } = this.props;
     const { isExpanded } = this.state;
 
     return (
@@ -59,11 +59,14 @@ class EntityCreator extends PureComponent {
           </Button>
         </HeaderContent>
 
-        <Input
-          isVisible={isExpanded}
-          hideForm={this.expandForm(false)}
-          createEntity={handleCreate}
-        />
+        <InputWrapper isVisible={isExpanded}>
+          {
+            children({
+              hideForm: this.expandForm(false),
+              isVisible: isExpanded
+            })
+          }
+        </InputWrapper>
       </Wrapper>
     );
   }
@@ -71,7 +74,9 @@ class EntityCreator extends PureComponent {
 
 EntityCreator.propTypes = {
   title: string.isRequired,
-  handleCreate: func.isRequired
+  children: func.isRequired
 };
+
+EntityCreator.defaultProps = {};
 
 export default EntityCreator;

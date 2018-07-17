@@ -5,6 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import { Chats } from '../../../../api/chats';
 import EntityCreator from '../../../shared/EntityCreator';
+import Input from './Input';
 
 const Wrapper = styled.div`
   margin-top: 32px;
@@ -47,10 +48,17 @@ class ChatList extends PureComponent {
 
     return (
       <Wrapper>
-        <EntityCreator
-          title={'Channels'}
-          handleCreate={this.addChat}
-        />
+        <EntityCreator title={'Channels'}>
+          {
+            ({ hideForm, isVisible }) => (
+              <Input
+                createEntity={this.addChat}
+                hideForm={hideForm}
+                isVisible={isVisible}
+              />
+            )
+          }
+        </EntityCreator>
 
         <ChatsWrapper>
           {
