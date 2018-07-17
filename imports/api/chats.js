@@ -21,13 +21,14 @@ Meteor.methods({
   },
   'chats.remove'(chatId) {
     check(chatId, String);
-    Chats.remove(chatId);
+
+    // TODO: Put "removed" flag as true instead of removing from DB
+    return Chats.remove(chatId);
   },
 });
 
 if (Meteor.isServer) {
   Meteor.publish('chats', function chatsPublication() {
-    console.log(this.userId);
     return Chats.find({ ownerId: this.userId });
   });
 }
