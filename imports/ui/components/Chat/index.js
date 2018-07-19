@@ -46,6 +46,8 @@ class Chat extends PureComponent {
   render() {
     const { messages, chat, currentUser } = this.props;
 
+    console.log(chat);
+
     if (!chat) {
       return <Preloader />
     }
@@ -69,7 +71,7 @@ class Chat extends PureComponent {
 };
 
 export default withTracker(({ chatId }) => {
-  Meteor.subscribe('chats');
+  Meteor.subscribe('ownedChats');
   Meteor.subscribe('messages', chatId);
 
   return {

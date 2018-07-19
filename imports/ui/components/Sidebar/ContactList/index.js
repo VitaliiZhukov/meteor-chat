@@ -10,13 +10,14 @@ const Wrapper = styled.div`
   margin-top: 32px;
 `;
 
-const ChatsWrapper = styled.div`
+const ContactsWrapper = styled.div`
   margin-top: 16px;
 `;
 
 class UserList extends PureComponent {
   addContact = (userId) => {
-    console.log(userId)
+    const { chatId } = this.props;
+    Meteor.call('chats.addContact', { chatId, userId });
   }
 
   componentDidUpdate(prev) {
@@ -27,7 +28,7 @@ class UserList extends PureComponent {
   }
 
   render() {
-    const { users, chatId } = this.props;
+    const { availableUsers } = this.props;
 
     return (
       <Wrapper>
@@ -38,10 +39,15 @@ class UserList extends PureComponent {
                 createEntity={this.addContact}
                 handleBlur={hideForm}
                 isVisible={isVisible}
+                items={availableUsers}
               />
             )
           }
         </EntityCreator>
+
+        <ContactsWrapper>
+          {'Conatcts here...'}
+        </ContactsWrapper>
       </Wrapper>
     );
   }
@@ -58,9 +64,9 @@ UserList.defaultProps = {
 };
 
 export default withTracker(({ chatId }) => {
-  Meteor.subscribe('usersByChat', chatId);
+  Meteor.subscribe('availableUsers', chatId);
 
   return {
-    chats: Meteor.users.find({}).fetch(),
+    availableUsers: Meteor.users.find({}).fetch(),
   };
 })(UserList);

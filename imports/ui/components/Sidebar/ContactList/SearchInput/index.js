@@ -3,7 +3,11 @@ import { shape, arrayOf, string } from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import { Input } from 'semantic-ui-react';
 
-const getSuggestionValue = item => item._id;
+import './styles.css';
+
+const getSuggestionValue = item => {
+  return item.username;
+}
 
 class ContactSearchField extends PureComponent {
   constructor(props) {
@@ -11,17 +15,10 @@ class ContactSearchField extends PureComponent {
     
     this.input = React.createRef();
     this.state = {
-      value: ''
+      value: '',
+      isHovered: false
     }
   }
-
-  onChange = (e, { newValue }) => {
-    this.setState({ value: newValue });
-  };
-
-  handleRequest = ({ value }) => {
-    console.log(value);
-  };
 
   componentDidUpdate(prev) {
     const { isVisible } = this.props;
@@ -30,22 +27,48 @@ class ContactSearchField extends PureComponent {
     }
   }
 
-  renderSuggestion = (value) => {
+  handleChange = (e, { newValue }) => {
+    this.setState({ value: newValue });
+  };
+
+  handleRequest = ({ value }) => {
+  };
+
+  handleSelection = (e, { suggestion }) => {
+    const { createEntity, handleBlur } = this.props;
+    createEntity(suggestion._id);
+    handleBlur();
+  }
+
+  handleHover = (value) => () => {
+    this.setState({ isHovered: value })
+  }
+
+  handleBlur = (e) => {
+    e.preventDefault();
+    const { isHovered } = this.state;
+
+    if (!isHovered) {
+      this.props.handleBlur();
+    }
+  }
+
+  renderSuggestion = ({ username }) => {
     return (
       <div>
-        { value }
+        { username }
       </div>
     );
   }
 
-  renderInput = () => {
-    const { handleBlur } = this.props;
+  renderInput = (props) => {
     return (
       <Input
+        {...props}
         placeholder={'Enter username...'}
         ref={this.input}
         style={{ width: '100%' }}
-        onBlur={handleBlur}
+        onBlur={this.handleBlur}
       />
     );
   }
@@ -56,20 +79,26 @@ class ContactSearchField extends PureComponent {
 
     const inputProps = {
       value,
-      onChange: this.onChange
+      onChange: this.handleChange
     };
 
     return (
-      <Autosuggest
-        suggestions={items}
-        onSuggestionsFetchRequested={this.handleRequest}
-        onSuggestionsClearRequested={() => {}}
-        getSuggestionValue={getSuggestionValue}
-        onSuggestionSelected={this.handleSelection}
-        renderSuggestion={this.renderSuggestion}
-        renderInputComponent={this.renderInput}
-        inputProps={inputProps}
-      />
+      <div
+        style={{ position: 'relative'}}
+        onMouseEnter={this.handleHover(true)}
+        onMouseLeave={this.handleHover(false)}
+      >
+        <Autosuggest
+          suggestions={items}
+          onSuggestionsFetchRequested={this.handleRequest}
+          onSuggestionsClearRequested={() => {}}
+          getSuggestionValue={getSuggestionValue}
+          onSuggestionSelected={this.handleSelection}
+          renderSuggestion={this.renderSuggestion}
+          renderInputComponent={this.renderInput}
+          inputProps={inputProps}
+        />
+      </div>
     );
   }
 };

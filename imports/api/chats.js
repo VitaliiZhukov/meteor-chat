@@ -16,7 +16,19 @@ Meteor.methods({
       name,
       createdAt: Date.now(),
       ownerId: this.userId,
-      username: Meteor.users.findOne(this.userId).username,
+      contacts: []
+    });
+  },
+  'chats.addContact'({ chatId, userId }) {
+    check(chatId, String);
+    check(userId, String);
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+ 
+    return Chats.update({ _id: chatId}, {
+      $push: { contacts: userId }
     });
   },
   'chats.remove'(chatId) {
@@ -28,8 +40,13 @@ Meteor.methods({
 });
 
 if (Meteor.isServer) {
-  Meteor.publish('chats', function chatsPublication() {
-    // return Chats.find({ ownerId: this.userId });
-    return Chats.find();
+  Meteor.publish('ownedChats', function chatsPublication() {
+    return Chats.find({ ownerId: this.userId });
+  });
+
+  Meteor.publish('participantChats', function chatsPublication() {
+    const { userId } = this;
+
+    return Chats.find({ contacts: userId });
   });
 }

@@ -46,6 +46,8 @@ class ChatList extends PureComponent {
   render() {
     const { chats, chatId } = this.props;
 
+    console.log(chats);
+
     return (
       <Wrapper>
         <EntityCreator title={'Channels'}>
@@ -91,7 +93,8 @@ ChatList.defaultProps = {
 };
 
 export default withTracker(() => {
-  Meteor.subscribe('chats');
+  Meteor.subscribe('ownedChats');
+  Meteor.subscribe('participantChats');
 
   return {
     chats: Chats.find({}, { sort: { createdAt: -1 } }).fetch(),

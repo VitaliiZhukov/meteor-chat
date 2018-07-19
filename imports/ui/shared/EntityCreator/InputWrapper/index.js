@@ -4,11 +4,10 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   ${props => props.isVisible
-    ? 'max-height: 100px;'
-    : 'max-height: 0;'
+    ? 'max-height: 500px;'
+    : 'max-height: 0; overflow: hidden;'
   }
   transition: all .5s ease-out;
-  overflow: hidden;
   width: 100%;
 `;
 
