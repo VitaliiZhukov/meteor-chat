@@ -45,6 +45,7 @@ const Message = ({ item, user }) => {
         <Title>
           <AuthorName>
             {user && user.username}
+            {user && ` id: ${user._id}`}
           </AuthorName>
           <Time>
             {moment.unix(item.createdAt / 1000).format('LT')}

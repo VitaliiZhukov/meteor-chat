@@ -49,4 +49,8 @@ if (Meteor.isServer) {
 
     return Chats.find({ contacts: userId });
   });
+
+  Meteor.publish('chatById', function chatsPublication() {
+    return Chats.find({ _id: chatId });
+  });
 }

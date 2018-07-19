@@ -46,8 +46,6 @@ class ChatList extends PureComponent {
   render() {
     const { chats, chatId } = this.props;
 
-    console.log(chats);
-
     return (
       <Wrapper>
         <EntityCreator title={'Channels'}>

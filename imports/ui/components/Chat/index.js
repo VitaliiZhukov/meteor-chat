@@ -46,8 +46,6 @@ class Chat extends PureComponent {
   render() {
     const { messages, chat, currentUser } = this.props;
 
-    console.log(chat);
-
     if (!chat) {
       return <Preloader />
     }

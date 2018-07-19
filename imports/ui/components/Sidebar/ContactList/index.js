@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react';
-import { shape, arrayOf, string } from 'prop-types';
+import { shape, string } from 'prop-types';
 import styled from 'styled-components';
 import { withTracker } from 'meteor/react-meteor-data';
 
+import { Chats } from '../../../../api/chats';
 import EntityCreator from '../../../shared/EntityCreator';
 import SearchInput from './SearchInput';
+import User from '../User';
 
 const Wrapper = styled.div`
   margin-top: 32px;
@@ -28,7 +30,12 @@ class UserList extends PureComponent {
   }
 
   render() {
-    const { availableUsers } = this.props;
+    const { availableUsers, chat } = this.props;
+
+    const { contacts = [] } = chat;
+    
+    const chatUsers = availableUsers
+      .filter(item => contacts.indexOf(item._id) > -1 && item._id !== Meteor.userId());
 
     return (
       <Wrapper>
@@ -46,7 +53,14 @@ class UserList extends PureComponent {
         </EntityCreator>
 
         <ContactsWrapper>
-          {'Conatcts here...'}
+          {
+            chatUsers.map(item => (
+              <User
+                key={item._id}
+                user={item}
+              />
+            ))
+          }
         </ContactsWrapper>
       </Wrapper>
     );
@@ -54,19 +68,21 @@ class UserList extends PureComponent {
 };
 
 UserList.propTypes = {
-  chats: arrayOf(shape({})),
+  chat: shape({}),
   chatId: string
 };
 
 UserList.defaultProps = {
   chatId: '',
-  chats: []
+  chat: {}
 };
 
 export default withTracker(({ chatId }) => {
-  Meteor.subscribe('availableUsers', chatId);
+  Meteor.subscribe('availableUsers');
+  Meteor.subscribe('chatById', chatId);
 
   return {
     availableUsers: Meteor.users.find({}).fetch(),
+    chat: Chats.findOne({ _id: chatId })
   };
 })(UserList);
