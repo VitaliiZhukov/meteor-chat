@@ -13,20 +13,31 @@ class MessageInput extends PureComponent {
     value: ''
   }
 
-  handleClick = () => {
+  sendMessage = () => {
     const { addMessage } = this.props;
     const { value } = this.state;
-
+  
     addMessage(value);
-
     this.setState({ value: '' });
+  }
+
+  handleClick = () => {
+    this.sendMessage();
   }
 
   handleChange = (e) => {
     this.setState({ value: e.target.value });
   }
 
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.sendMessage();
+    }
+  }
+
   render() {
+    const { value } = this.state;
+
     return(
       <Wrapper>
         <Input
@@ -35,6 +46,8 @@ class MessageInput extends PureComponent {
           placeholder='Message...'
           style={{ width: '100%' }}
           onChange={this.handleChange}
+          value={value}
+          onKeyPress={this.handleKeyPress}
         />
       </Wrapper>
     );
