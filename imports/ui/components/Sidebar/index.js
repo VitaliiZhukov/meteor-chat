@@ -19,12 +19,11 @@ const Sidebar = ({ currentUser, chatId }) => {
     return <Preloader />;
   }
 
+  console.log(currentUser);
+
   return (
     <Wrapper>
-      <User
-        user={currentUser}
-        isOnline
-      />
+      <User user={currentUser} />
 
       <ChatList chatId={chatId} />
 
@@ -45,6 +44,8 @@ Sidebar.defaultProps = {
 };
 
 export default withTracker(() => {
+  Meteor.subscribe('currentuser');
+  
   return {
     currentUser: Meteor.user(),
   };

@@ -14,10 +14,10 @@ const Text = styled.p`
   margin-top: 3px;
 `;
 
-const User = ({ user, isOnline, theme }) => (
+const User = ({ user, theme }) => (
   <Wrapper>
     {
-      isOnline
+      user.status && user.status.online
       ? <Icon name={'circle'} style={{ color: theme.highlightColor }} />
       : <Icon name={'circle outline'} />
     }
@@ -31,13 +31,11 @@ const User = ({ user, isOnline, theme }) => (
 User.propTypes = {
   user: shape({
     _id: string.isRequired,
-    username: string.isRequired
-  }),
-  isOnline: bool
-};
-
-User.defaultProps = {
-  isOnline: false
+    username: string.isRequired,
+    status: shape({
+      online: bool
+    }).isRequired
+  })
 };
 
 export default withTheme(User);
