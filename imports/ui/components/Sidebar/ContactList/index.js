@@ -30,12 +30,15 @@ class UserList extends PureComponent {
   }
 
   render() {
-    const { availableUsers, chat } = this.props;
+    const { allUsers, chat } = this.props;
 
     const { contacts = [] } = chat;
     
-    const chatUsers = availableUsers
+    const chatUsers = allUsers
       .filter(item => contacts.indexOf(item._id) > -1 && item._id !== Meteor.userId());
+
+    const freeUsers = allUsers
+      .filter(item => contacts.indexOf(item._id) === -1 && item._id !== Meteor.userId());
 
     return (
       <Wrapper>
@@ -46,7 +49,7 @@ class UserList extends PureComponent {
                 createEntity={this.addContact}
                 handleBlur={hideForm}
                 isVisible={isVisible}
-                items={availableUsers}
+                items={freeUsers}
               />
             )
           }
@@ -78,11 +81,11 @@ UserList.defaultProps = {
 };
 
 export default withTracker(({ chatId }) => {
-  Meteor.subscribe('availableUsers');
+  Meteor.subscribe('allUsers');
   Meteor.subscribe('chatById', chatId);
 
   return {
-    availableUsers: Meteor.users.find({}).fetch(),
+    allUsers: Meteor.users.find({}).fetch(),
     chat: Chats.findOne({ _id: chatId })
   };
 })(UserList);

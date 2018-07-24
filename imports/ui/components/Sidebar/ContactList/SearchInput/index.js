@@ -74,13 +74,15 @@ class ContactSearchField extends PureComponent {
   }
 
   render() {
-    const { items, chatId } = this.props;
+    const { items } = this.props;
     const { value } = this.state; 
 
     const inputProps = {
       value,
       onChange: this.handleChange
     };
+
+    const filteredItems = items.filter(item => item.username.includes(value.toLowerCase()));
 
     return (
       <div
@@ -89,7 +91,7 @@ class ContactSearchField extends PureComponent {
         onMouseLeave={this.handleHover(false)}
       >
         <Autosuggest
-          suggestions={items}
+          suggestions={filteredItems}
           onSuggestionsFetchRequested={this.handleRequest}
           onSuggestionsClearRequested={() => {}}
           getSuggestionValue={getSuggestionValue}

@@ -5,7 +5,7 @@ if (Meteor.isServer) {
     return Meteor.users.find({ _id: userId }, { fields: { username: 1, status: 1 } });
   });
 
-  Meteor.publish('availableUsers', function usersPublication() {
+  Meteor.publish('allUsers', function usersPublication() {
     return Meteor.users.find({}, { fields: { username: 1, status: 1 }});
   });
 

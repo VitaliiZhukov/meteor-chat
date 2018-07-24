@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   font-weight: bold;
   display: flex;
   align-items: center;
-  margin: 0 32px;
+  margin: 16px 32px;
 `;
 
 const Text = styled.p`

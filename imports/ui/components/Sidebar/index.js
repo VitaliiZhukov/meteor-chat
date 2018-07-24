@@ -19,8 +19,6 @@ const Sidebar = ({ currentUser, chatId }) => {
     return <Preloader />;
   }
 
-  console.log(currentUser);
-
   return (
     <Wrapper>
       <User user={currentUser} />
