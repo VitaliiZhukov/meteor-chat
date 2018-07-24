@@ -16,7 +16,7 @@ Meteor.methods({
       name,
       createdAt: Date.now(),
       ownerId: this.userId,
-      contacts: []
+      contacts: [this.userId]
     });
   },
   'chats.addContact'({ chatId, userId }) {
