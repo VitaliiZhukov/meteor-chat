@@ -13,7 +13,14 @@ Accounts.onLogin((() => {
 }));
 
 const authorizedRoutes = FlowRouter.group({
-  name: 'authorized'
+  name: 'authorized',
+  triggersEnter: [
+    (context, redirect) => {
+      if (!Meteor.userId()) {
+        redirect('/');
+      }
+    }
+]
 });
 
 const unauthorizedRoutes = FlowRouter.group({
