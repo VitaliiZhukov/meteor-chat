@@ -10,6 +10,7 @@ if (Meteor.isServer) {
   });
 
   Meteor.publish('currentUser', function () {
+    console.log(123);
     return Meteor.users.find(this.userId,
       { fields: { status: 1 }});
   });

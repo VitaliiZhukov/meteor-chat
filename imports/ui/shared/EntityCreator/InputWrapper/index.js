@@ -4,20 +4,18 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   ${props => props.isVisible
-    ? 'max-height: 500px;'
-    : 'max-height: 0; overflow: hidden;'
+    ? 'max-height: 50px; opacity: 1'
+    : 'max-height: 0;overflow: hidden; opacity: 0;'
   }
   transition: all .5s ease-out;
   width: 100%;
 `;
 
-const InputWrapper = ({ children, isVisible }) => {
-  return(
-    <Wrapper isVisible={isVisible}>
-      { children }
-    </Wrapper>
-  );
-}
+const InputWrapper = ({ children, isVisible }) => (
+  <Wrapper isVisible={isVisible}>
+    { children }
+  </Wrapper>
+);
 
 InputWrapper.propTypes = {
   children: oneOfType([arrayOf(node), node]).isRequired,

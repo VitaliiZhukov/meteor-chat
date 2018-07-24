@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 `;
 
 const Sidebar = ({ currentUser, chatId }) => {
-  if (!currentUser) {
+  if (!currentUser || !currentUser.status) {
     return <Preloader />;
   }
 
@@ -25,7 +25,11 @@ const Sidebar = ({ currentUser, chatId }) => {
 
       <ChatList chatId={chatId} />
 
-      <ContactList chatId={chatId} />
+      {
+        chatId &&
+        <ContactList chatId={chatId} />
+      }
+
     </Wrapper>
   );
 };
@@ -42,7 +46,7 @@ Sidebar.defaultProps = {
 };
 
 export default withTracker(() => {
-  Meteor.subscribe('currentuser');
+  Meteor.subscribe('currentUser');
   
   return {
     currentUser: Meteor.user(),

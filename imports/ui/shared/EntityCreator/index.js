@@ -41,7 +41,7 @@ class EntityCreator extends PureComponent {
   }
 
   render() {
-    const { title, handleCreate, input, children } = this.props;
+    const { title, children } = this.props;
     const { isExpanded } = this.state;
 
     return (
