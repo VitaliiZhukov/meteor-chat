@@ -1,6 +1,6 @@
 # meteor-chat
 
-Simple chat built on Meteor framework
+Simple slack-style chat built on Meteor framework
 [![meteor-chat](https://vitaliizhukov.github.io/static/meteor-chat.png)](http://vitaliizhukov.github.io/static/meteor-chat.mp4)
 
 
@@ -8,6 +8,7 @@ Simple chat built on Meteor framework
   - reactjs
   - styled-components
   - react-autosuggest
+  - semantic-ui-react
   - meteor-user-status
 
 ### Run project
